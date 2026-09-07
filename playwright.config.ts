@@ -2,10 +2,10 @@ import { defineConfig } from '@playwright/test';
 import dotenv from 'dotenv';
 import { configManager } from './src/config/ConfigManager';
 
-dotenv.config({ path: '.env' });
+dotenv.config({ path: process.env.ENV_FILE ?? '.env.restful-booker' });
 
 export default defineConfig({
-  testDir: './tests/crud',
+  testDir: './tests',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 1,

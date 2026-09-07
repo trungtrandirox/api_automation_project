@@ -2,15 +2,10 @@ import { test as base, request as playwrightRequest } from '@playwright/test';
 import type { APIRequestContext } from '@playwright/test';
 import { configManager } from '../config/ConfigManager';
 import { ApiClient } from '../core/ApiClient';
-import { AuthManager } from '../core/AuthManager';
-import { ArticleService } from '../services/ArticleService';
-import { AuthService } from '../services/AuthService';
 
 type ApiFixtures = {
   apiContext: APIRequestContext;
-  authManager: AuthManager;
-  authService: AuthService;
-  articleService: ArticleService;
+  apiClient: ApiClient;
 };
 
 export const test = base.extend<ApiFixtures>({
@@ -23,16 +18,8 @@ export const test = base.extend<ApiFixtures>({
     await use(context);
     await context.dispose();
   },
-  authManager: async ({}, use) => {
-    await use(new AuthManager());
-  },
-  authService: async ({ apiContext, authManager }, use) => {
-    const apiClient = new ApiClient(apiContext, authManager);
-    await use(new AuthService(apiClient, authManager));
-  },
-  articleService: async ({ apiContext, authManager }, use) => {
-    const apiClient = new ApiClient(apiContext, authManager);
-    await use(new ArticleService(apiClient));
+  apiClient: async ({ apiContext }, use) => {
+    await use(new ApiClient(apiContext));
   },
 });
 

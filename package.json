@@ -5,7 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "test:crud": "playwright test --grep @crud",
+    "test:post-auth": "playwright test tests/restful-booker/auth/post",
+    "test:post-booking": "playwright test tests/restful-booker/booking/create",
+    "test:get-booking": "playwright test tests/restful-booker/booking/get",
+    "test:put-booking": "playwright test tests/restful-booker/booking/update/full",
+    "test:patch-booking": "playwright test tests/restful-booker/booking/update/partial",
+    "test:delete-booking": "playwright test tests/restful-booker/booking/delete",
+    "test:restful-booker": "playwright test tests/restful-booker",
+    "test:smoke": "playwright test tests/restful-booker --grep @smoke",
+    "test:regression": "playwright test tests/restful-booker --grep-invert @smoke",
     "test:report": "playwright show-report",
     "lint": "tsc --noEmit"
   },
@@ -20,7 +28,5 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
-  "dependencies": {
-    "@faker-js/faker": "^9.9.0"
-  }
+  "dependencies": {}
 }
